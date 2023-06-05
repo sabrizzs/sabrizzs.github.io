@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Meu Site</title>
+  <title>cd-collage</title>
   <style>
-    /* Estilos CSS */
+    /*CSS*/
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -29,6 +29,7 @@
     }
   </style>
   <script>
+    /*JavaScript*/
     document.addEventListener("DOMContentLoaded", function() {
       var button = document.getElementById("myButton");
       var message = document.getElementById("message");
@@ -43,62 +44,62 @@
         var periodSelect = document.getElementById("periodSelect");
         var selectedPeriod = periodSelect.value;
 
-        // Verificar se o campo de usuário está preenchido
+        //Check if the user field is filled in
         if (username.trim() === "") {
-          message.textContent = "Please, enter a valid username!";
+          message.textContent = "please, enter a valid username!";
           message.style.display = "block";
           return;
         }
 
-        // Mapear os valores de tamanho selecionados para o número de linhas e colunas
+        //Map selected size values ​​to number of rows and columns
         var sizeMap = {
           "3x3": { rows: 3, cols: 3 },
           "5x5": { rows: 5, cols: 5 },
           "10x10": { rows: 10, cols: 10 }
         };
 
-        // Obter o número de linhas e colunas com base no tamanho selecionado
+        //Get number of rows and columns based on selected size
         var selectedSizeData = sizeMap[selectedSize];
         var rows = selectedSizeData.rows;
         var cols = selectedSizeData.cols;
 
-        // Mapear os valores de período selecionados para os parâmetros da API do Last.fm
+        //Map selected period values ​​to Last.fm API parameters
         var periodMap = {
           "7days": "7day",
           "1month": "1month",
           "overall": "overall"
         };
 
-        // Obter o período de tempo com base na seleção
+        //Get time period based on selection
         var selectedPeriodParam = periodMap[selectedPeriod];
 
-        // Chamar a API do Last.fm e exibir os álbuns mais ouvidos
+        //Call Last.fm API and display most listened albums
         var apiKey = "9a164e95c716032bae6b3ae91d8ebd4e";
         var apiUrl = "https://ws.audioscrobbler.com/2.0/?method=user.gettopalbums&user=" + username + "&period=" + selectedPeriodParam + "&api_key=" + apiKey + "&format=json";
 
         fetch(apiUrl)
           .then(response => response.json())
           .then(data => {
-            // Processar os dados da API e exibir os álbuns em uma colagem
+            //Process API data and display albums in a collage
             var albums = data.topalbums.album.slice(0, rows * cols); // Limitar o número de álbuns com base no tamanho selecionado
             var collage = albums.map(album => "<img src='" + album.image[2]["#text"] + "' alt='" + album.name + "'>");
 
-            // Definir o estilo CSS para a colagem
+            //Set the CSS style for the collage
             var collageStyle = "display: grid; grid-template-columns: repeat(" + cols + ", 1fr); grid-gap: 10px;";
 
-            // Criar a estrutura HTML da colagem
+            //Create the HTML structure of the collage
             var collageHtml = "";
             for (var i = 0; i < collage.length; i++) {
               collageHtml += "<div>" + collage[i] + "</div>";
             }
 
-            // Exibir a colagem de álbuns e aplicar o estilo
+            //View album collage and apply style
             message.innerHTML = collageHtml;
             message.style.display = "block";
             message.style.cssText = collageStyle;
           })
           .catch(error => {
-            // Lidar com erros
+            //Deal with errors
             console.error("Erro ao obter dados da API do Last.fm:", error);
             message.textContent = "Error getting data from Last.fm.";
             message.style.display = "block";
@@ -112,17 +113,17 @@
   <h4>CD Collage is a project that aims to create a platform where users can view personalized collages of their most listened albums in their Last.fm and/or Spotify accounts.</h4>
   
   <div>
-    <!-- Adicionar a caixa de texto para o nome de usuário -->
-    <input type="text" id="usernameInput" placeholder="Insira seu nome de usuário do Last.fm">
+    <!-- Add textbox for username -->
+    <input type="text" id="usernameInput" placeholder="your last.fm username">
 
-    <!-- Adicionar a seleção de tamanho da colagem -->
+    <!-- Add collage size selection -->
     <select id="sizeSelect">
       <option value="3x3">3x3</option>
       <option value="5x5">5x5</option>
       <option value="10x10">10x10</option>
     </select>
 
-    <!-- Adicionar a seleção do período de tempo -->
+    <!-- Add time period selection -->
   
     <select id="periodSelect">
       <option value="7days">Últimos 7 dias</option>
@@ -131,7 +132,7 @@
     </select>
   </div>
 
-  <button id="myButton">Start now!</button>
+  <button id="myButton">submit</button>
 
   <div id="message"></div>
 
