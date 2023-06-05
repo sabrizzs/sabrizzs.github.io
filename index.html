@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>cd-collage</title>
+  <title>Meu Site</title>
   <style>
     /* Estilos CSS */
     body {
@@ -11,13 +11,13 @@
     }
 
     h1 {
-      color: #511531;
+      color: #810740;
     }
 
     button {
       padding: 10px 20px;
-      background-color: #f35091;
-      color: #ffffff;
+      background-color: #d15c96;
+      color: #fff;
       border: none;
       cursor: pointer;
     }
@@ -28,51 +28,59 @@
     }
   </style>
   <script>
-    // Lógica JavaScript
     document.addEventListener("DOMContentLoaded", function() {
       var button = document.getElementById("myButton");
       var message = document.getElementById("message");
 
       button.addEventListener("click", function() {
-
         var usernameInput = document.getElementById("usernameInput");
         var username = usernameInput.value;
 
+        var sizeSelect = document.getElementById("sizeSelect");
+        var selectedSize = sizeSelect.value;
+
+        var periodSelect = document.getElementById("periodSelect");
+        var selectedPeriod = periodSelect.value;
+
         // Verificar se o campo de usuário está preenchido
         if (username.trim() === "") {
-          message.textContent = "Enter a valid username.";
+          message.textContent = "Por favor, insira um nome de usuário.";
           message.style.display = "block";
           return;
         }
 
+        // Mapear os valores de tamanho selecionados para o número de linhas e colunas
+        var sizeMap = {
+          "3x3": { rows: 3, cols: 3 },
+          "5x5": { rows: 5, cols: 5 },
+          "10x10": { rows: 10, cols: 10 }
+        };
+
+        // Obter o número de linhas e colunas com base no tamanho selecionado
+        var selectedSizeData = sizeMap[selectedSize];
+        var rows = selectedSizeData.rows;
+        var cols = selectedSizeData.cols;
+
+        // Mapear os valores de período selecionados para os parâmetros da API do Last.fm
+        var periodMap = {
+          "7days": "7day",
+          "1month": "1month",
+          "overall": "overall"
+        };
+
+        // Obter o período de tempo com base na seleção
+        var selectedPeriodParam = periodMap[selectedPeriod];
+
         // Chamar a API do Last.fm e exibir os álbuns mais ouvidos
-        var apiKey = "9a164e95c716032bae6b3ae91d8ebd4e";
-        var apiUrl = "https://ws.audioscrobbler.com/2.0/?method=user.gettopalbums&user=" + username + "&api_key=" + apiKey + "&format=json";
+        var apiKey = "SUA_API_KEY_DO_LASTFM";
+        var apiUrl = "https://ws.audioscrobbler.com/2.0/?method=user.gettopalbums&user=" + username + "&period=" + selectedPeriodParam + "&api_key=" + apiKey + "&format=json";
 
         fetch(apiUrl)
           .then(response => response.json())
           .then(data => {
             // Processar os dados da API e exibir os álbuns em uma colagem
-            var albums = data.topalbums.album;
+            var albums = data.topalbums.album.slice(0, rows * cols); // Limitar o número de álbuns com base no tamanho selecionado
             var collage = albums.map(album => "<img src='" + album.image[2]["#text"] + "' alt='" + album.name + "'>");
-            message.innerHTML = collage.join("");
-            message.style.display = "block";
-          })
-          .catch(error => {
-            // Lidar com erros
-            console.error("Erro ao obter dados da API do Last.fm:", error);
-            message.textContent = "Error getting data. Enter a valid username.";
-            message.style.display = "block";
-          });
-      });
-    });
-  </script>
-</head>
-<body>
-  <h1>CD Collage</h1>
-  <h4>CD Collage is a project that aims to create a platform where users can view personalized collages of their most listened albums in their Last.fm and/or Spotify accounts.</h4>
-  <input type="text" id="usernameInput" placeholder="your Last.fm username">
-  <button id="myButton">Start now!</button>
-  <div id="message"></div>
-</body>
-</html>
+
+            // Definir o estilo CSS para a colagem
+            var collageStyle
