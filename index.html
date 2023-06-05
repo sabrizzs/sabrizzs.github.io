@@ -14,18 +14,17 @@
       color: #810740;
     }
 
-    button {
-      padding: 10px 20px;
-      background-color: #d15c96;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      margin-top: 20px;
+    #collage {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      background-image: url('bed-background.jpg');
+      background-size: cover;
     }
 
-    #message {
-      margin-top: 20px;
-      display: none;
+    .cd {
+      position: absolute;
+      transform: translate(-50%, -50%);
     }
   </style>
   <script>
@@ -51,7 +50,7 @@
           return;
         }
 
-        //map selected size values ​​to number of rows and columns
+        //map selected size values to number of rows and columns
         var sizeMap = {
           "3x3": { rows: 3, cols: 3 },
           "5x5": { rows: 5, cols: 5 },
@@ -63,7 +62,7 @@
         var rows = selectedSizeData.rows;
         var cols = selectedSizeData.cols;
 
-        //map selected period values ​​to Last.fm API parameters
+        //map selected period values to Last.fm API parameters
         var periodMap = {
           "7days": "7day",
           "1month": "1month",
@@ -81,26 +80,19 @@
           .then(response => response.json())
           .then(data => {
             //process API data and display albums in a collage
-            var albums = data.topalbums.album.slice(0, rows * cols); // Limitar o número de álbuns com base no tamanho selecionado
-            var collage = albums.map(album => "<img src='" + album.image[2]["#text"] + "' alt='" + album.name + "'>");
+            var albums = data.topalbums.album.slice(0, rows * cols); // Limit the number of albums based on the selected size
+            var collage = albums.map(album => "<img src='" + album.image[2]["#text"] + "' alt='" + album.name + "' class='cd'>");
 
-            //set the CSS style
-            var collageStyle = "display: grid; grid-template-columns: repeat(" + cols + ", 1fr);";
+            //create the HTML structure for the collage
+            var collageHtml = collage.join("");
 
-            //create the HTML structure
-            var collageHtml = "";
-            for (var i = 0; i < collage.length; i++) {
-              collageHtml += "<div>" + collage[i] + "</div>";
-            }
-
-            //apply style
-            message.innerHTML = collageHtml;
-            message.style.display = "block";
-            message.style.cssText = collageStyle;
+            //apply collage to the page
+            var collageContainer = document.getElementById("collage");
+            collageContainer.innerHTML = collageHtml;
           })
           .catch(error => {
             //deal with errors
-            console.error("Erro ao obter dados da API do Last.fm:", error);
+            console.error("Error fetching data from Last.fm API:", error);
             message.textContent = "Error getting data from Last.fm.";
             message.style.display = "block";
           });
@@ -124,7 +116,6 @@
     </select>
 
     <!-- add time period selection -->
-  
     <select id="periodSelect">
       <option value="7days">last 7 days</option>
       <option value="1month">last month</option>
@@ -134,7 +125,7 @@
 
   <button id="myButton">submit</button>
 
-  <div id="message"></div>
+  <div id="collage"></div>
 
   <p style="font-size: 14px; color:#d15c96">by @sabrizzs</p>
 
