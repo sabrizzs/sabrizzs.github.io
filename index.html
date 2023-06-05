@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Meu Site</title>
+  <title>cd-collage</title>
   <style>
     /* Estilos CSS */
     body {
@@ -16,8 +16,8 @@
 
     button {
       padding: 10px 20px;
-      background-color: #337ab7;
-      color: #fff;
+      background-color: #f35091;
+      color: #ffffff;
       border: none;
       cursor: pointer;
     }
@@ -34,9 +34,19 @@
       var message = document.getElementById("message");
 
       button.addEventListener("click", function() {
+
+        var usernameInput = document.getElementById("usernameInput");
+        var username = usernameInput.value;
+
+        // Verificar se o campo de usuário está preenchido
+        if (username.trim() === "") {
+          message.textContent = "seu usuário do Last.fm";
+          message.style.display = "block";
+          return;
+        }
+
         // Chamar a API do Last.fm e exibir os álbuns mais ouvidos
         var apiKey = "9a164e95c716032bae6b3ae91d8ebd4e";
-        var username = "sabrizzs";
         var apiUrl = "https://ws.audioscrobbler.com/2.0/?method=user.gettopalbums&user=" + username + "&api_key=" + apiKey + "&format=json";
 
         fetch(apiUrl)
@@ -61,6 +71,7 @@
 <body>
   <h1>CD Collage</h1>
   <h4>CD Collage is a project that aims to create a platform where users can view personalized collages of their most listened albums in their Last.fm and/or Spotify accounts.</h4>
+  <input type="text" id="usernameInput" placeholder="seu usuário do Last.fm">
   <button id="myButton">Start now!</button>
   <div id="message"></div>
 </body>
