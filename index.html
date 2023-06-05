@@ -72,7 +72,7 @@
         var selectedPeriodParam = periodMap[selectedPeriod];
 
         // Chamar a API do Last.fm e exibir os álbuns mais ouvidos
-        var apiKey = "SUA_API_KEY_DO_LASTFM";
+        var apiKey = "9a164e95c716032bae6b3ae91d8ebd4e";
         var apiUrl = "https://ws.audioscrobbler.com/2.0/?method=user.gettopalbums&user=" + username + "&period=" + selectedPeriodParam + "&api_key=" + apiKey + "&format=json";
 
         fetch(apiUrl)
