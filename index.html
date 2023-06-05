@@ -45,7 +45,7 @@
 
         // Verificar se o campo de usuário está preenchido
         if (username.trim() === "") {
-          message.textContent = "Por favor, insira um nome de usuário.";
+          message.textContent = "Please, enter a valid username!";
           message.style.display = "block";
           return;
         }
@@ -100,7 +100,7 @@
           .catch(error => {
             // Lidar com erros
             console.error("Erro ao obter dados da API do Last.fm:", error);
-            message.textContent = "Erro ao obter dados da API.";
+            message.textContent = "Error getting data from Last.fm.";
             message.style.display = "block";
           });
       });
