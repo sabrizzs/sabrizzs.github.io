@@ -11,7 +11,7 @@
     }
 
     h1 {
-      color: #333;
+      color: #511531;
     }
 
     button {
@@ -40,7 +40,7 @@
 
         // Verificar se o campo de usuário está preenchido
         if (username.trim() === "") {
-          message.textContent = "seu usuário do Last.fm";
+          message.textContent = "your Last.fm username";
           message.style.display = "block";
           return;
         }
@@ -61,7 +61,7 @@
           .catch(error => {
             // Lidar com erros
             console.error("Erro ao obter dados da API do Last.fm:", error);
-            message.textContent = "Erro ao obter dados da API.";
+            message.textContent = "Error getting data. Enter a valid username.";
             message.style.display = "block";
           });
       });
@@ -71,7 +71,7 @@
 <body>
   <h1>CD Collage</h1>
   <h4>CD Collage is a project that aims to create a platform where users can view personalized collages of their most listened albums in their Last.fm and/or Spotify accounts.</h4>
-  <input type="text" id="usernameInput" placeholder="seu usuário do Last.fm">
+  <input type="text" id="usernameInput" placeholder="your Last.fm username">
   <button id="myButton">Start now!</button>
   <div id="message"></div>
 </body>
