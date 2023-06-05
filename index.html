@@ -83,4 +83,51 @@
             var collage = albums.map(album => "<img src='" + album.image[2]["#text"] + "' alt='" + album.name + "'>");
 
             // Definir o estilo CSS para a colagem
-            var collageStyle
+            var collageStyle = "display: grid; grid-template-columns: repeat(" + cols + ", 1fr); grid-gap: 10px;";
+
+            // Criar a estrutura HTML da colagem
+            var collageHtml = "";
+            for (var i = 0; i < collage.length; i++) {
+              collageHtml += "<div>" + collage[i] + "</div>";
+            }
+
+            // Exibir a colagem de álbuns e aplicar o estilo
+            message.innerHTML = collageHtml;
+            message.style.display = "block";
+            message.style.cssText = collageStyle;
+          })
+          .catch(error => {
+            // Lidar com erros
+            console.error("Erro ao obter dados da API do Last.fm:", error);
+            message.textContent = "Erro ao obter dados da API.";
+            message.style.display = "block";
+          });
+      });
+    });
+  </script>
+</head>
+<body>
+  <h1>CD Collage</h1>
+  <h4>CD Collage is a project that aims to create a platform where users can view personalized collages of their most listened albums in their Last.fm and/or Spotify accounts.</h4>
+  
+  <!-- Adicionar a caixa de texto para o nome de usuário -->
+  <input type="text" id="usernameInput" placeholder="Insira seu nome de usuário do Last.fm">
+
+  <!-- Adicionar a seleção de tamanho da colagem -->
+  <select id="sizeSelect">
+    <option value="3x3">3x3</option>
+    <option value="5x5">5x5</option>
+    <option value="10x10">10x10</option>
+  </select>
+
+  <!-- Adicionar a seleção do período de tempo -->
+  <select id="periodSelect">
+    <option value="7days">Últimos 7 dias</option>
+    <option value="1month">Último mês</option>
+    <option value="overall">Tempo total</option>
+  </select>
+
+  <button id="myButton">Start now!</button>
+  <div id="message"></div>
+</body>
+</html>
