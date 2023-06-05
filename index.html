@@ -34,8 +34,26 @@
       var message = document.getElementById("message");
 
       button.addEventListener("click", function() {
-        message.textContent = "there's nothing here (yet) >:(";
-        message.style.display = "block";
+        // Chamar a API do Last.fm e exibir os álbuns mais ouvidos
+        var apiKey = "9a164e95c716032bae6b3ae91d8ebd4e";
+        var username = "sabrizzs";
+        var apiUrl = "https://ws.audioscrobbler.com/2.0/?method=user.gettopalbums&user=" + username + "&api_key=" + apiKey + "&format=json";
+
+        fetch(apiUrl)
+          .then(response => response.json())
+          .then(data => {
+            // Processar os dados da API e exibir os álbuns em uma colagem
+            var albums = data.topalbums.album;
+            var collage = albums.map(album => "<img src='" + album.image[2]["#text"] + "' alt='" + album.name + "'>");
+            message.innerHTML = collage.join("");
+            message.style.display = "block";
+          })
+          .catch(error => {
+            // Lidar com erros
+            console.error("Erro ao obter dados da API do Last.fm:", error);
+            message.textContent = "Erro ao obter dados da API.";
+            message.style.display = "block";
+          });
       });
     });
   </script>
