@@ -3,7 +3,7 @@
 <head>
   <title>cd-collage</title>
   <style>
-    /*CSS*/
+    /* CSS */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -27,9 +27,64 @@
       margin-top: 20px;
       display: none;
     }
+
+    .collage-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .cd {
+      margin: 10px;
+      position: relative;
+      width: 200px;
+      height: 200px;
+    }
+
+    .cd img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .cd-frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('cd-frame.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    .vinyl {
+      position: absolute;
+      top: 10%;
+      left: 10%;
+      width: 80%;
+      height: 80%;
+      background-image: url('vinyl.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      transform: rotate(-10deg);
+    }
+
+    .bed {
+      margin-top: 50px;
+      width: 800px;
+      height: 300px;
+      background-image: url('bed.jpg');
+      background-size: cover;
+      position: relative;
+    }
+
+    .cd-on-bed {
+      position: absolute;
+    }
   </style>
   <script>
-    /*JavaScript*/
+    /* JavaScript */
     document.addEventListener("DOMContentLoaded", function() {
       var button = document.getElementById("myButton");
       var message = document.getElementById("message");
@@ -82,7 +137,7 @@
           .then(data => {
             //process API data and display albums in a collage
             var albums = data.topalbums.album.slice(0, rows * cols); // Limitar o número de álbuns com base no tamanho selecionado
-            var collage = albums.map(album => "<img src='" + album.image[2]["#text"] + "' alt='" + album.name + "'>");
+            var collage = albums.map(album => "<div class='cd'><div class='cd-frame'><img src='" + album.image[2]["#text"] + "' alt='" + album.name + "'></div><div class='vinyl'></div></div>");
 
             //set the CSS style
             var collageStyle = "display: grid; grid-template-columns: repeat(" + cols + ", 1fr);";
@@ -90,7 +145,7 @@
             //create the HTML structure
             var collageHtml = "";
             for (var i = 0; i < collage.length; i++) {
-              collageHtml += "<div>" + collage[i] + "</div>";
+              collageHtml += collage[i];
             }
 
             //apply style
@@ -124,7 +179,6 @@
     </select>
 
     <!-- add time period selection -->
-  
     <select id="periodSelect">
       <option value="7days">last 7 days</option>
       <option value="1month">last month</option>
@@ -134,9 +188,13 @@
 
   <button id="myButton">submit</button>
 
-  <div id="message"></div>
+  <div class="bed">
+    <div class="collage-container" id="message">
+      <!-- album covers will be displayed here -->
+    </div>
+  </div>
 
-  <p style="font-size: 14px; color:#d15c96">@sabrizzs</p>
+  <p style="font-size: 14px; color:#d15c96">by @sabrizzs</p>
 
 </body>
 </html>
