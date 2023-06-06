@@ -38,7 +38,7 @@
     #message img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
     }
   </style>
   <script>
@@ -111,6 +111,9 @@
             message.innerHTML = collageHtml;
             message.style.display = "grid";
             message.style.gridTemplateColumns = "repeat(" + cols + ", 1fr)";
+
+            // enable the download button
+            downloadButton.disabled = false;
           })
           .catch(error => {
             // deal with errors
@@ -119,58 +122,41 @@
             message.style.display = "block";
           });
       });
-      
+
       downloadButton.addEventListener("click", function() {
-        var messageNode = document.getElementById("message");
         var canvas = document.createElement("canvas");
         var ctx = canvas.getContext("2d");
-        var images = messageNode.getElementsByTagName("img");
-        var imageCount = images.length;
-        var completedCount = 0;
 
-        var maxWidth = 300; // Define the maximum width for each image
-        var maxHeight = 300; // Define the maximum height for each image
+        var message = document.getElementById("message");
+        var images = message.getElementsByTagName("img");
 
-        var totalWidth = maxWidth * cols;
-        var totalHeight = maxHeight * rows;
+        var rows = message.childElementCount;
+        var cols = message.children[0].childElementCount;
 
-        canvas.width = totalWidth;
-        canvas.height = totalHeight;
+        var width = images[0].naturalWidth;
+        var height = images[0].naturalHeight;
 
-        Array.from(images).forEach(function(image, index) {
-          var img = new Image();
-          img.crossOrigin = "Anonymous";
-          img.src = image.src;
-          img.onload = function() {
-            var x = (index % cols) * maxWidth;
-            var y = Math.floor(index / cols) * maxHeight;
+        canvas.width = cols * width;
+        canvas.height = rows * height;
 
-            var width = img.width;
-            var height = img.height;
+        var x = 0;
+        var y = 0;
 
-            if (width > maxWidth || height > maxHeight) {
-              var aspectRatio = width / height;
+        for (var i = 0; i < images.length; i++) {
+          ctx.drawImage(images[i], x, y);
 
-              if (width > height) {
-                width = maxWidth;
-                height = width / aspectRatio;
-              } else {
-                height = maxHeight;
-                width = height * aspectRatio;
-              }
-            }
+          x += width;
 
-            ctx.drawImage(img, x, y, width, height);
-            completedCount++;
+          if (x >= canvas.width) {
+            x = 0;
+            y += height;
+          }
+        }
 
-            if (completedCount === imageCount) {
-              var link = document.createElement("a");
-              link.download = "collage.png";
-              link.href = canvas.toDataURL("image/png");
-              link.click();
-            }
-          };
-        });
+        var link = document.createElement("a");
+        link.download = "collage.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
       });
     });
   </script>
@@ -203,9 +189,9 @@
 
   <div id="message"></div>
 
-  <button id="downloadButton">Download Collage</button>
+  <button id="downloadButton" disabled>Download Collage</button>
 
-  <p style="font-size: 14px; color:#d15c96">Test #21 by @sabrizzs</p>
+  <p style="font-size: 14px; color:#d15c96">Test #22 by @sabrizzs</p>
 
 </body>
 </html>
