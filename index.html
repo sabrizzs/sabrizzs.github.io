@@ -41,12 +41,10 @@
       object-fit: cover;
     }
   </style>
-  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
   <script>
     /* JavaScript */
     document.addEventListener("DOMContentLoaded", function() {
       var button = document.getElementById("myButton");
-      var downloadButton = document.getElementById("downloadButton");
       var message = document.getElementById("message");
 
       button.addEventListener("click", function() {
@@ -112,28 +110,12 @@
             message.innerHTML = collageHtml;
             message.style.display = "grid";
             message.style.gridTemplateColumns = "repeat(" + cols + ", 1fr)";
-
-            downloadButton.style.display = "block"; // show download button
           })
           .catch(error => {
             // deal with errors
             console.error("Error getting data from Last.fm API:", error);
             message.textContent = "Error getting data from Last.fm.";
             message.style.display = "block";
-          });
-      });
-
-      downloadButton.addEventListener("click", function() {
-        html2canvas(document.getElementById("message"))
-          .then(function(canvas) {
-            // create a temporary link to download the image
-            var link = document.createElement("a");
-            link.href = canvas.toDataURL();
-            link.download = "collage.png";
-            link.click();
-          })
-          .catch(function(error) {
-            console.error("Error creating image:", error);
           });
       });
     });
@@ -167,9 +149,7 @@
 
   <div id="message"></div>
 
-  <button id="downloadButton" style="display: none;">Download Image</button>
-
-  <p style="font-size: 14px; color:#d15c96">Test #17 by @sabrizzs</p>
+  <p style="font-size: 14px; color:#d15c96">Test #11 by @sabrizzs</p>
 
 </body>
 </html>
