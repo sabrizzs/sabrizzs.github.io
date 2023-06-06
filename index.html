@@ -124,13 +124,17 @@
       });
 
       downloadButton.addEventListener("click", function() {
-        html2canvas(document.getElementById("message")).then(function(canvas) {
-          // create a temporary link to download the image
-          var link = document.createElement("a");
-          link.href = canvas.toDataURL();
-          link.download = "collage.png";
-          link.click();
-        });
+        html2canvas(document.getElementById("message"))
+          .then(function(canvas) {
+            // create a temporary link to download the image
+            var link = document.createElement("a");
+            link.href = canvas.toDataURL();
+            link.download = "collage.png";
+            link.click();
+          })
+          .catch(function(error) {
+            console.error("Error creating image:", error);
+          });
       });
     });
   </script>
@@ -165,7 +169,7 @@
 
   <button id="downloadButton" style="display: none;">Download Image</button>
 
-  <p style="font-size: 14px; color:#d15c96">Test #16 by @sabrizzs</p>
+  <p style="font-size: 14px; color:#d15c96">Test #17 by @sabrizzs</p>
 
 </body>
 </html>
