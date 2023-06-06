@@ -101,7 +101,9 @@
             var collageHtml = "";
             for (var i = 0; i < rows * cols; i++) {
               var album = albums[i % albums.length]; // repeat albums if there are fewer albums than the grid size
-              collageHtml += "<div><img src='" + album.image[2]["#text"] + "' alt='" + album.name + "'></div>";
+              
+              var imageUrl = album.image[4]["#text"] || album.image[3]["#text"] || album.image[2]["#text"];
+              collageHtml += "<div><img src='" + imageUrl + "' alt='" + album.name + "'></div>";
             }
 
             // apply style
