@@ -27,12 +27,22 @@
       margin-top: 20px;
       display: none;
     }
+
+    #collageContainer {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    #collageContainer img {
+      margin: 5px;
+    }
   </style>
   <script>
     /*JavaScript*/
     document.addEventListener("DOMContentLoaded", function() {
       var button = document.getElementById("myButton");
       var message = document.getElementById("message");
+      var collageContainer = document.getElementById("collageContainer");
 
       button.addEventListener("click", function() {
         var usernameInput = document.getElementById("usernameInput");
@@ -46,7 +56,7 @@
 
         //check if the user field is filled in
         if (username.trim() === "") {
-          message.textContent = "please, enter a valid username!";
+          message.textContent = "Please enter a valid username!";
           message.style.display = "block";
           return;
         }
@@ -81,26 +91,22 @@
           .then(response => response.json())
           .then(data => {
             //process API data and display albums in a collage
-            var albums = data.topalbums.album.slice(0, rows * cols); // Limitar o número de álbuns com base no tamanho selecionado
-            var collage = albums.map(album => "<img src='" + album.image[2]["#text"] + "' alt='" + album.name + "'>");
-
-            //set the CSS style
-            var collageStyle = "display: grid; grid-template-columns: repeat(" + cols + ", 1fr);";
+            var albums = data.topalbums.album.slice(0, rows * cols); // Limit the number of albums based on the selected size
 
             //create the HTML structure
             var collageHtml = "";
-            for (var i = 0; i < collage.length; i++) {
-              collageHtml += "<div>" + collage[i] + "</div>";
+            for (var i = 0; i < albums.length; i++) {
+              collageHtml += "<img src='" + albums[i].image[2]["#text"] + "' alt='" + albums[i].name + "'>";
             }
 
             //apply style
-            message.innerHTML = collageHtml;
-            message.style.display = "block";
-            message.style.cssText = collageStyle;
+            collageContainer.innerHTML = collageHtml;
+            message.style.display = "none";
+            collageContainer.style.display = "block";
           })
           .catch(error => {
             //deal with errors
-            console.error("Erro ao obter dados da API do Last.fm:", error);
+            console.error("Error getting data from Last.fm API:", error);
             message.textContent = "Error getting data from Last.fm.";
             message.style.display = "block";
           });
@@ -110,11 +116,11 @@
 </head>
 <body>
   <h1>cd collage</h1>
-  <h4>create a collage of your most listened songs from last.fm or spotify!</h4>
+  <h4>Create a collage of your most listened songs from Last.fm or Spotify!</h4>
   
   <div>
     <!-- add textbox for username -->
-    <input type="text" id="usernameInput" placeholder="your last.fm username">
+    <input type="text" id="usernameInput" placeholder="Your Last.fm username">
 
     <!-- add collage size selection -->
     <select id="sizeSelect">
@@ -124,19 +130,20 @@
     </select>
 
     <!-- add time period selection -->
-  
     <select id="periodSelect">
-      <option value="7days">last 7 days</option>
-      <option value="1month">last month</option>
-      <option value="overall">overall</option>
+      <option value="7days">Last 7 days</option>
+      <option value="1month">Last month</option>
+      <option value="overall">Overall</option>
     </select>
   </div>
 
-  <button id="myButton">submit</button>
+  <button id="myButton">Submit</button>
 
   <div id="message"></div>
 
-  <p style="font-size: 14px; color:#d15c96">test #2 by @sabrizzs</p>
+  <div id="collageContainer"></div>
+
+  <p style="font-size: 14px; color:#d15c96">Test #3 by @sabrizzs</p>
 
 </body>
 </html>
