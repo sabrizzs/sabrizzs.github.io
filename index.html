@@ -36,8 +36,8 @@
     }
 
     #message img {
-      width: 70%;
-      height: 70%;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
     }
   </style>
@@ -79,10 +79,8 @@
 
         // map selected period values to Last.fm API parameters
         var periodMap = {
-          "1day":"1day",
           "7days": "7day",
           "1month": "1month",
-          "1year": "1year",
           "overall": "overall"
         };
 
@@ -139,10 +137,8 @@
 
     <!-- add time period selection -->
     <select id="periodSelect">
-      <option value="1days">Last 1 day</option>
       <option value="7days">Last 7 days</option>
       <option value="1month">Last month</option>
-      <option value="1year">Last year</option>
       <option value="overall">Overall</option>
     </select>
   </div>
