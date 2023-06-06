@@ -41,7 +41,7 @@
       object-fit: cover;
     }
   </style>
-  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dom-to-image/dist/dom-to-image.min.js"></script>
   <script>
     /* JavaScript */
     document.addEventListener("DOMContentLoaded", function() {
@@ -124,11 +124,11 @@
       });
 
       downloadButton.addEventListener("click", function() {
-        html2canvas(document.getElementById("message"))
-          .then(function(canvas) {
+        domtoimage.toBlob(document.getElementById("message"))
+          .then(function(blob) {
             // create a temporary link to download the image
             var link = document.createElement("a");
-            link.href = canvas.toDataURL();
+            link.href = URL.createObjectURL(blob);
             link.download = "collage.png";
             link.click();
           })
@@ -169,7 +169,7 @@
 
   <button id="downloadButton" style="display: none;">Download Image</button>
 
-  <p style="font-size: 14px; color:#d15c96">Test #17 by @sabrizzs</p>
+  <p style="font-size: 14px; color:#d15c96">Test #11 by @sabrizzs</p>
 
 </body>
 </html>
