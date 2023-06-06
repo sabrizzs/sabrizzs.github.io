@@ -3,7 +3,7 @@
 <head>
   <title>cd-collage</title>
   <style>
-    /* CSS */
+    /*CSS*/
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -28,9 +28,8 @@
       display: none;
     }
   </style>
-  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script> <!-- Adiciona a biblioteca html2canvas -->
   <script>
-    /* JavaScript */
+    /*JavaScript*/
     document.addEventListener("DOMContentLoaded", function() {
       var button = document.getElementById("myButton");
       var message = document.getElementById("message");
@@ -45,98 +44,63 @@
         var periodSelect = document.getElementById("periodSelect");
         var selectedPeriod = periodSelect.value;
 
-        // check if the user field is filled in
+        //check if the user field is filled in
         if (username.trim() === "") {
-          message.textContent = "Please enter a valid username!";
+          message.textContent = "please, enter a valid username!";
           message.style.display = "block";
           return;
         }
 
-        // map selected size values to number of rows and columns
+        //map selected size values ​​to number of rows and columns
         var sizeMap = {
           "3x3": { rows: 3, cols: 3 },
           "5x5": { rows: 5, cols: 5 },
           "10x10": { rows: 10, cols: 10 }
         };
 
-        // get number of rows and columns based on selected size
+        //get number of rows and columns based on selected size
         var selectedSizeData = sizeMap[selectedSize];
         var rows = selectedSizeData.rows;
         var cols = selectedSizeData.cols;
 
-        // map selected period values to Last.fm API parameters
+        //map selected period values ​​to Last.fm API parameters
         var periodMap = {
           "7days": "7day",
           "1month": "1month",
           "overall": "overall"
         };
 
-        // get time period based on selection
+        //get time period based on selection
         var selectedPeriodParam = periodMap[selectedPeriod];
 
-        // call Last.fm API and display most listened albums
+        //call Last.fm API and display most listened albums
         var apiKey = "9a164e95c716032bae6b3ae91d8ebd4e";
         var apiUrl = "https://ws.audioscrobbler.com/2.0/?method=user.gettopalbums&user=" + username + "&period=" + selectedPeriodParam + "&api_key=" + apiKey + "&format=json";
 
         fetch(apiUrl)
           .then(response => response.json())
           .then(data => {
-            // process API data and display albums in a collage
-            var albums = data.topalbums.album.slice(0, rows * cols); // Limit the number of albums based on the selected size
+            //process API data and display albums in a collage
+            var albums = data.topalbums.album.slice(0, rows * cols); // Limitar o número de álbuns com base no tamanho selecionado
+            var collage = albums.map(album => "<img src='" + album.image[2]["#text"] + "' alt='" + album.name + "'>");
 
-            var collagePromises = albums.map(album => {
-              return new Promise((resolve, reject) => {
-                var img = new Image();
-                img.src = album.image[2]["#text"];
-                img.onload = () => resolve(img);
-                img.onerror = error => reject(error);
-              });
-            });
+            //set the CSS style
+            var collageStyle = "display: grid; grid-template-columns: repeat(" + cols + ", 1fr);";
 
-            Promise.all(collagePromises)
-              .then(images => {
-                // set the CSS style
-                var collageStyle = "display: grid; grid-template-columns: repeat(" + cols + ", 1fr);";
+            //create the HTML structure
+            var collageHtml = "";
+            for (var i = 0; i < collage.length; i++) {
+              collageHtml += "<div>" + collage[i] + "</div>";
+            }
 
-                // create the HTML structure
-                var collageHtml = "";
-                for (var i = 0; i < images.length; i++) {
-                  collageHtml += "<div><img src='" + images[i].src + "' alt='" + albums[i].name + "'></div>";
-                }
-
-                // apply style
-                message.innerHTML = collageHtml;
-                message.style.display = "block";
-                message.style.cssText = collageStyle;
-
-                // capture the collage as an image using html2canvas
-                html2canvas(message)
-                  .then(canvas => {
-                    // convert the canvas to a data URL
-                    var dataURL = canvas.toDataURL();
-
-                    // create a link element for downloading the image
-                    var downloadLink = document.createElement("a");
-                    downloadLink.href = dataURL;
-                    downloadLink.download = "cd_collage.png";
-                    downloadLink.textContent = "Download CD Collage";
-                    message.appendChild(downloadLink);
-                  })
-                  .catch(error => {
-                    console.error("Error capturing collage as image:", error);
-                    message.textContent = "Error capturing collage as image.";
-                    message.style.display = "block";
-                  });
-              })
-              .catch(error => {
-                console.error("Error loading album images:", error);
-                message.textContent = "Error loading album images.";
-                message.style.display = "block";
-              });
+            //apply style
+            message.innerHTML = collageHtml;
+            message.style.display = "block";
+            message.style.cssText = collageStyle;
           })
           .catch(error => {
-            // deal with errors
-            console.error("Error getting data from Last.fm API:", error);
+            //deal with errors
+            console.error("Erro ao obter dados da API do Last.fm:", error);
             message.textContent = "Error getting data from Last.fm.";
             message.style.display = "block";
           });
@@ -160,6 +124,7 @@
     </select>
 
     <!-- add time period selection -->
+  
     <select id="periodSelect">
       <option value="7days">last 7 days</option>
       <option value="1month">last month</option>
@@ -171,7 +136,7 @@
 
   <div id="message"></div>
 
-  <p style="font-size: 14px; color:#d15c96">teste #1 by @sabrizzs</p>
+  <p style="font-size: 14px; color:#d15c96">test #2 by @sabrizzs</p>
 
 </body>
 </html>
