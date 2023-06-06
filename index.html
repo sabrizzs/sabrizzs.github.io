@@ -94,12 +94,13 @@
           .then(response => response.json())
           .then(data => {
             // process API data and display albums in a collage
-            var albums = data.topalbums.album.slice(0, rows * cols); // limit the number of albums based on the selected size
+            var albums = data.topalbums.album; // get all albums
 
             // create the HTML structure
             var collageHtml = "";
-            for (var i = 0; i < albums.length; i++) {
-              collageHtml += "<div><img src='" + albums[i].image[2]["#text"] + "' alt='" + albums[i].name + "'></div>";
+            for (var i = 0; i < rows * cols; i++) {
+              var album = albums[i % albums.length]; // repeat albums if there are fewer albums than the grid size
+              collageHtml += "<div><img src='" + album.image[2]["#text"] + "' alt='" + album.name + "'></div>";
             }
 
             // apply style
@@ -144,7 +145,7 @@
 
   <div id="message"></div>
 
-  <p style="font-size: 14px; color:#d15c96">Test #7 by @sabrizzs</p>
+  <p style="font-size: 14px; color:#d15c96">Test #8 by @sabrizzs</p>
 
 </body>
 </html>
