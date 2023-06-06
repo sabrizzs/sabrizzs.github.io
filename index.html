@@ -40,13 +40,17 @@
       height: 100%;
       object-fit: cover;
     }
+
+    #downloadButton {
+      display: none;
+    }
   </style>
   <script>
     /* JavaScript */
     document.addEventListener("DOMContentLoaded", function() {
       var button = document.getElementById("myButton");
-      var downloadButton = document.getElementById("downloadButton");
       var message = document.getElementById("message");
+      var downloadButton = document.getElementById("downloadButton");
 
       button.addEventListener("click", function() {
         var usernameInput = document.getElementById("usernameInput");
@@ -102,7 +106,7 @@
             var collageHtml = "";
             for (var i = 0; i < rows * cols; i++) {
               var album = albums[i % albums.length]; // repeat albums if there are fewer albums than the grid size
-              
+
               var imageUrl = album.image[3]["#text"] || album.image[4]["#text"] || album.image[2]["#text"];
               collageHtml += "<div><img src='" + imageUrl + "' alt='" + album.name + "'></div>";
             }
@@ -112,8 +116,8 @@
             message.style.display = "grid";
             message.style.gridTemplateColumns = "repeat(" + cols + ", 1fr)";
 
-            // enable the download button
-            downloadButton.disabled = false;
+            // show download button
+            downloadButton.style.display = "block";
           })
           .catch(error => {
             // deal with errors
@@ -121,42 +125,6 @@
             message.textContent = "Error getting data from Last.fm.";
             message.style.display = "block";
           });
-      });
-
-      downloadButton.addEventListener("click", function() {
-        var canvas = document.createElement("canvas");
-        var ctx = canvas.getContext("2d");
-
-        var message = document.getElementById("message");
-        var images = message.getElementsByTagName("img");
-
-        var rows = message.childElementCount;
-        var cols = message.children[0].childElementCount;
-
-        var width = images[0].naturalWidth;
-        var height = images[0].naturalHeight;
-
-        canvas.width = cols * width;
-        canvas.height = rows * height;
-
-        var x = 0;
-        var y = 0;
-
-        for (var i = 0; i < images.length; i++) {
-          ctx.drawImage(images[i], x, y);
-
-          x += width;
-
-          if (x >= canvas.width) {
-            x = 0;
-            y += height;
-          }
-        }
-
-        var link = document.createElement("a");
-        link.download = "collage.png";
-        link.href = canvas.toDataURL("image/png");
-        link.click();
       });
     });
   </script>
@@ -189,9 +157,9 @@
 
   <div id="message"></div>
 
-  <button id="downloadButton">Download Collage</button>
+  <a id="downloadButton" download="collage.png" href="#" style="display: none;">Download Collage</a>
 
-  <p style="font-size: 14px; color:#d15c96">Test #22 by @sabrizzs</p>
+  <p style="font-size: 14px; color:#d15c96">Test #23 by @sabrizzs</p>
 
 </body>
 </html>
