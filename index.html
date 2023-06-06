@@ -38,7 +38,7 @@
     #message img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
     }
   </style>
   <script>
@@ -128,15 +128,39 @@
         var imageCount = images.length;
         var completedCount = 0;
 
-        canvas.width = messageNode.offsetWidth;
-        canvas.height = messageNode.offsetHeight;
+        var maxWidth = 300; // Define the maximum width for each image
+        var maxHeight = 300; // Define the maximum height for each image
 
-        Array.from(images).forEach(function(image) {
+        var totalWidth = maxWidth * cols;
+        var totalHeight = maxHeight * rows;
+
+        canvas.width = totalWidth;
+        canvas.height = totalHeight;
+
+        Array.from(images).forEach(function(image, index) {
           var img = new Image();
           img.crossOrigin = "Anonymous";
           img.src = image.src;
           img.onload = function() {
-            ctx.drawImage(img, image.offsetLeft, image.offsetTop, image.offsetWidth, image.offsetHeight);
+            var x = (index % cols) * maxWidth;
+            var y = Math.floor(index / cols) * maxHeight;
+
+            var width = img.width;
+            var height = img.height;
+
+            if (width > maxWidth || height > maxHeight) {
+              var aspectRatio = width / height;
+
+              if (width > height) {
+                width = maxWidth;
+                height = width / aspectRatio;
+              } else {
+                height = maxHeight;
+                width = height * aspectRatio;
+              }
+            }
+
+            ctx.drawImage(img, x, y, width, height);
             completedCount++;
 
             if (completedCount === imageCount) {
@@ -179,9 +203,9 @@
 
   <div id="message"></div>
 
-  <button id="downloadButton">Download Image</button>
+  <button id="downloadButton">Download Collage</button>
 
-  <p style="font-size: 14px; color:#d15c96">Test #20 by @sabrizzs</p>
+  <p style="font-size: 14px; color:#d15c96">Test #21 by @sabrizzs</p>
 
 </body>
 </html>
