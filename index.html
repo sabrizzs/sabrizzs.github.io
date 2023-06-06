@@ -27,9 +27,6 @@
       margin-top: 20px;
       display: none;
       display: grid;
-      max-width: 600px; /* Defina o tamanho máximo desejado */
-      margin-left: auto;
-      margin-right: auto;
     }
 
     #message div {
@@ -38,18 +35,17 @@
       align-items: center;
     }
 
-    #downloadButton {
-      display: none;
-      margin-top: 20px;
+    #message img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
   </style>
-  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
   <script>
     /* JavaScript */
     document.addEventListener("DOMContentLoaded", function() {
       var button = document.getElementById("myButton");
       var message = document.getElementById("message");
-      var downloadButton = document.getElementById("downloadButton");
 
       button.addEventListener("click", function() {
         var usernameInput = document.getElementById("usernameInput");
@@ -112,9 +108,6 @@
             message.innerHTML = collageHtml;
             message.style.display = "grid";
             message.style.gridTemplateColumns = "repeat(" + cols + ", 1fr)";
-
-            // show download button
-            downloadButton.style.display = "block";
           })
           .catch(error => {
             // deal with errors
@@ -122,16 +115,6 @@
             message.textContent = "Error getting data from Last.fm.";
             message.style.display = "block";
           });
-      });
-
-      downloadButton.addEventListener("click", function() {
-        html2canvas(message).then(function(canvas) {
-          // create a temporary link element to download the image
-          var link = document.createElement("a");
-          link.href = canvas.toDataURL("image/png");
-          link.download = "cd_collage.png";
-          link.click();
-        });
       });
     });
   </script>
@@ -164,9 +147,7 @@
 
   <div id="message"></div>
 
-  <button id="downloadButton">Download Image</button>
-
-  <p style="font-size: 14px; color:#d15c96">Test #13 by @sabrizzs</p>
+  <p style="font-size: 14px; color:#d15c96">Test #11 by @sabrizzs</p>
 
 </body>
 </html>
