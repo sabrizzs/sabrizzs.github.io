@@ -41,7 +41,6 @@
       object-fit: cover;
     }
   </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
   <script>
     /* JavaScript */
     document.addEventListener("DOMContentLoaded", function() {
@@ -123,13 +122,31 @@
       
       downloadButton.addEventListener("click", function() {
         var messageNode = document.getElementById("message");
-        domtoimage.toBlob(messageNode)
-          .then(function(blob) {
-            var link = document.createElement('a');
-            link.download = 'collage.png';
-            link.href = URL.createObjectURL(blob);
-            link.click();
-          });
+        var canvas = document.createElement("canvas");
+        var ctx = canvas.getContext("2d");
+        var images = messageNode.getElementsByTagName("img");
+        var imageCount = images.length;
+        var completedCount = 0;
+
+        canvas.width = messageNode.offsetWidth;
+        canvas.height = messageNode.offsetHeight;
+
+        Array.from(images).forEach(function(image) {
+          var img = new Image();
+          img.crossOrigin = "Anonymous";
+          img.src = image.src;
+          img.onload = function() {
+            ctx.drawImage(img, image.offsetLeft, image.offsetTop, image.offsetWidth, image.offsetHeight);
+            completedCount++;
+
+            if (completedCount === imageCount) {
+              var link = document.createElement("a");
+              link.download = "collage.png";
+              link.href = canvas.toDataURL("image/png");
+              link.click();
+            }
+          };
+        });
       });
     });
   </script>
@@ -164,7 +181,7 @@
 
   <button id="downloadButton">Download Image</button>
 
-  <p style="font-size: 14px; color:#d15c96">Test #19 by @sabrizzs</p>
+  <p style="font-size: 14px; color:#d15c96">Test #20 by @sabrizzs</p>
 
 </body>
 </html>
