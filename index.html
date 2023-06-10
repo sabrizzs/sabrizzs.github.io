@@ -95,16 +95,25 @@
 
               // set the position and dimensions of the image based on the vertices
               var vertices = cd.dataset.vertices.split(",");
-              var top = vertices[0];
-              var left = vertices[1];
-              var width = vertices[2] - vertices[0];
-              var height = vertices[3] - vertices[1];
 
+              // get the coordinates for each vertex
+              var coordinates = [];
+              for (var j = 0; j < vertices.length; j += 2) {
+                var x = parseInt(vertices[j]);
+                var y = parseInt(vertices[j + 1]);
+                coordinates.push({ x: x, y: y });
+              }
+
+              // create a polygon path using the coordinates
+              var path = "";
+              for (var k = 0; k < coordinates.length; k++) {
+                path += coordinates[k].x + "px " + coordinates[k].y + "px, ";
+              }
+              path = path.slice(0, -2); // remove the trailing comma and space
+
+              // set the CSS clip-path property with the polygon path
               cd.innerHTML = "<img src='" + imageUrl + "' alt='" + album.name + "'>";
-              cd.style.top = top + "px";
-              cd.style.left = left + "px";
-              cd.style.width = width + "px";
-              cd.style.height = height + "px";
+              cd.style.clipPath = "polygon(" + path + ")";
             }
 
             // show the CD collage and download button
@@ -141,7 +150,7 @@
 
   <div id="message">
     <img src="projetoPS.png" alt="Cds on bed" style="width: 1323px; height: 1250px;">
-    <div class="cd" data-vertices="533,449,411,643"></div>
+    <div class="cd" data-vertices="533,449,411,643, 234,234,545,435"></div>
     <div class="cd" data-vertices="200,50,300,150"></div>
     <div class="cd" data-vertices="350,50,450,150"></div>
     <div class="cd" data-vertices="500,50,600,150"></div>
@@ -156,7 +165,7 @@
 
   <a id="downloadButton" download="collage.png" href="#" style="display: none;">Download Collage</a>
 
-  <p style="font-size: 14px; color:#d15c96">Test #27 by @sabrizzs</p>
+  <p style="font-size: 14px; color:#d15c96">Test #28 by @sabrizzs</p>
 
 </body>
 </html>
