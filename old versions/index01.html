@@ -26,11 +26,13 @@
     #message {
       margin-top: 20px;
       display: none;
-      position: relative;
+      display: grid;
     }
 
-    #message .cd {
-      position: absolute;
+    #message div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     #message img {
@@ -54,6 +56,9 @@
         var usernameInput = document.getElementById("usernameInput");
         var username = usernameInput.value;
 
+        var sizeSelect = document.getElementById("sizeSelect");
+        var selectedSize = sizeSelect.value;
+
         var periodSelect = document.getElementById("periodSelect");
         var selectedPeriod = periodSelect.value;
 
@@ -63,6 +68,19 @@
           message.style.display = "block";
           return;
         }
+
+        // map selected size values to number of rows and columns
+        var sizeMap = {
+          "3x3": { rows: 3, cols: 3 },
+          "5x5": { rows: 5, cols: 5 },
+          "8x8": { rows: 8, cols: 8 },
+          "10x10": { rows: 10, cols: 10 }
+        };
+
+        // get number of rows and columns based on selected size
+        var selectedSizeData = sizeMap[selectedSize];
+        var rows = selectedSizeData.rows;
+        var cols = selectedSizeData.cols;
 
         // map selected period values to Last.fm API parameters
         var periodMap = {
@@ -76,43 +94,33 @@
 
         // call Last.fm API and display most listened albums
         var apiKey = "9a164e95c716032bae6b3ae91d8ebd4e";
-        var apiUrl = "https://ws.audioscrobbler.com/2.0/?method=user.gettopalbums&user=" + username + "&period=" + selectedPeriodParam + "&limit=11&api_key=" + apiKey + "&format=json";
+        var apiUrl = "https://ws.audioscrobbler.com/2.0/?method=user.gettopalbums&user=" + username + "&period=" + selectedPeriodParam + "&api_key=" + apiKey + "&format=json";
 
         fetch(apiUrl)
           .then(response => response.json())
           .then(data => {
-            // process API data and display albums in the CD collage
-            var albums = data.topalbums.album; // get top albums
+            // process API data and display albums in a collage
+            var albums = data.topalbums.album; // get all albums
 
-            // get the CD elements
-            var cdElements = document.getElementsByClassName("cd");
+            // create the HTML structure
+            var collageHtml = "";
+            for (var i = 0; i < rows * cols; i++) {
+              var album = albums[i % albums.length]; // repeat albums if there are fewer albums than the grid size
 
-            // loop through the albums and position the images on the CDs
-            for (var i = 0; i < albums.length; i++) {
-              var album = albums[i];
-              var cd = cdElements[i];
               var imageUrl = album.image[3]["#text"] || album.image[4]["#text"] || album.image[2]["#text"];
-
-              // set the position and dimensions of the image based on the vertices
-              var vertices = cd.dataset.vertices.split(",");
-              var top = vertices[0];
-              var left = vertices[1];
-              var width = vertices[2] - vertices[0];
-              var height = vertices[3] - vertices[1];
-
-              cd.innerHTML = "<img src='" + imageUrl + "' alt='" + album.name + "'>";
-              cd.style.top = top + "px";
-              cd.style.left = left + "px";
-              cd.style.width = width + "px";
-              cd.style.height = height + "px";
+              collageHtml += "<div><img src='" + imageUrl + "' alt='" + album.name + "'></div>";
             }
 
-            // show the CD collage and download button
-            message.style.display = "block";
+            // apply style
+            message.innerHTML = collageHtml;
+            message.style.display = "grid";
+            message.style.gridTemplateColumns = "repeat(" + cols + ", 1fr)";
+
+            // show download button
             downloadButton.style.display = "block";
           })
           .catch(error => {
-            // handle errors
+            // deal with errors
             console.error("Error getting data from Last.fm API:", error);
             message.textContent = "Error getting data from Last.fm.";
             message.style.display = "block";
@@ -129,6 +137,14 @@
     <!-- add textbox for username -->
     <input type="text" id="usernameInput" placeholder="Your Last.fm username">
 
+    <!-- add collage size selection -->
+    <select id="sizeSelect">
+      <option value="3x3">3x3</option>
+      <option value="5x5">5x5</option>
+      <option value="8x8">8x8</option>
+      <option value="10x10">10x10</option>
+    </select>
+
     <!-- add time period selection -->
     <select id="periodSelect">
       <option value="7days">Last 7 days</option>
@@ -139,20 +155,7 @@
 
   <button id="myButton">Submit</button>
 
-  <div id="message">
-    <img src="projetoPS.png" alt="Cds on bed" style="width: 100%;">
-    <div class="cd" data-vertices="50,50,150,150"></div>
-    <div class="cd" data-vertices="200,50,300,150"></div>
-    <div class="cd" data-vertices="350,50,450,150"></div>
-    <div class="cd" data-vertices="500,50,600,150"></div>
-    <div class="cd" data-vertices="650,50,750,150"></div>
-    <div class="cd" data-vertices="800,50,900,150"></div>
-    <div class="cd" data-vertices="950,50,1050,150"></div>
-    <div class="cd" data-vertices="1100,50,1200,150"></div>
-    <div class="cd" data-vertices="1250,50,1350,150"></div>
-    <div class="cd" data-vertices="1400,50,1500,150"></div>
-    <div class="cd" data-vertices="1550,50,1650,150"></div>
-  </div>
+  <div id="message"></div>
 
   <a id="downloadButton" download="collage.png" href="#" style="display: none;">Download Collage</a>
 
