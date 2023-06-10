@@ -31,6 +31,7 @@
 
     #message .cd {
       position: absolute;
+      overflow: hidden; /* Adicionado para evitar que as imagens sejam exibidas fora do quadrilátero */
     }
 
     #message img {
@@ -95,7 +96,6 @@
 
               // set the position and dimensions of the image based on the vertices
               var vertices = cd.dataset.vertices.split(",");
-              var vertices = cd.dataset.vertices.split(",");
               var x1 = parseInt(vertices[0]);
               var y1 = parseInt(vertices[1]);
               var x2 = parseInt(vertices[2]);
@@ -109,11 +109,9 @@
               var height = Math.sqrt(Math.pow(x4 - x1, 2) + Math.pow(y4 - y1, 2));
               
               cd.innerHTML = "<img src='" + imageUrl + "' alt='" + album.name + "'>";
-              cd.style.position = "absolute";
-              cd.style.clipPath = "polygon(" + x1 + "px " + y1 + "px, " + x2 + "px " + y2 + "px, " + x3 + "px " + y3 + "px, " + x4 + "px " + y4 + "px)";
-
               cd.style.width = width + "px";
               cd.style.height = height + "px";
+              cd.style.clipPath = "polygon(" + x1 + "px " + y1 + "px, " + x2 + "px " + y2 + "px, " + x3 + "px " + y3 + "px, " + x4 + "px " + y4 + "px)";
             }
 
             // show the CD collage and download button
@@ -148,7 +146,6 @@
 
   <button id="myButton">Submit</button>
   <div id="message">
-    <img src="projetoPS.png" alt="Cds on bed" style="width: 1323; height: 1250">
     <div class="cd" data-vertices="533,449,411,643,733,649,611,843"></div>
     <div class="cd" data-vertices="533,449,411,643,733,649,611,843"></div>
     <div class="cd" data-vertices="533,449,411,643,733,649,611,843"></div>
@@ -164,7 +161,7 @@
 
   <a id="downloadButton" download="collage.png" href="#" style="display: none;">Download Collage</a>
 
-  <p style="font-size: 14px; color:#d15c96">Test #35 by @sabrizzs</p>
+  <p style="font-size: 14px; color:#d15c96">Test #36 by @sabrizzs</p>
 
 </body>
 </html>
