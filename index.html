@@ -91,14 +91,14 @@
               var bedWidth = bedImage.width;
               var bedHeight = bedImage.height;
 
-              var x1 = (parseInt(vertices[0]) / 1323) * bedWidth;
-              var y1 = (parseInt(vertices[1]) / 1250) * bedHeight;
-              var x2 = (parseInt(vertices[2]) / 1323) * bedWidth;
-              var y2 = (parseInt(vertices[3]) / 1250) * bedHeight;
-              var x3 = (parseInt(vertices[4]) / 1323) * bedWidth;
-              var y3 = (parseInt(vertices[5]) / 1250) * bedHeight;
-              var x4 = (parseInt(vertices[6]) / 1323) * bedWidth;
-              var y4 = (parseInt(vertices[7]) / 1250) * bedHeight;
+              var x1 = vertices[0];
+              var y1 = vertices[1];
+              var x2 = vertices[2];
+              var y2 = vertices[3];
+              var x3 = vertices[4];
+              var y3 = vertices[5];
+              var x4 = vertices[6];
+              var y4 = vertices[7];
 
               var img = document.createElement("img");
               img.src = imageUrl;
@@ -139,7 +139,7 @@
   <button id="myButton">Submit</button>
 
   <div id="message">
-    <img id="bedImage" src="projetoPS.png" alt="Bed Image" style="display: none;">
+    <img id="bedImage" src="projetoPS.png" alt="Bed Image" style="width: 1323; height: 1250">>
     <div class="cd" data-vertices="533,449,411,643,733,649,611,843"></div>
     <div class="cd" data-vertices="533,449,411,643,733,649,611,843"></div>
     <div class="cd" data-vertices="533,449,411,643,733,649,611,843"></div>
@@ -154,7 +154,7 @@
     <!-- Add more "cd" divs for each CD on the bed -->
   </div>
 
-  <p style="font-size: 14px; color:#d15c96">Test #37 by @sabrizzs</p>
+  <p style="font-size: 14px; color:#d15c96">Test #38 by @sabrizzs</p>
 
 </body>
 </html>
