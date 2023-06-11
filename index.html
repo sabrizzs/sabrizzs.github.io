@@ -28,10 +28,23 @@
       display: none;
     }
 
+    .container {
+      display: none;
+      position: relative;
+      width: 1323px;
+      height: 1250px;
+    }
+
+    .imagemfundo {
+      position: relative;
+      width: 1323px;
+      height: 1250px;
+      display: none;
+    }
+
     .cd {
       position: absolute;
-      background-color: #ddd;
-      background-size: cover;
+      display: none;
     }
   </style>
   <script>
@@ -71,39 +84,26 @@
         fetch(apiUrl)
           .then(response => response.json())
           .then(data => {
-            var albums = data.topalbums.album.slice(0, 11); // get the first 11 albums
+            var albums = data.topalbums.album.slice(0, 1);
 
             // apply album images to CDs based on the provided coordinates
             var cds = document.getElementsByClassName("cd");
-            for (var i = 0; i < cds.length; i++) {
+            for (var i = 0; i < cds.length-1; i++) {             
               var cd = cds[i];
-              var vertices = cd.getAttribute("data-vertices").split(",");
-
               var album = albums[i];
               var imageUrl = album.image[3]["#text"] || album.image[2]["#text"] || album.image[1]["#text"];
-
-              var x1 = vertices[0] + "px";
-              var y1 = vertices[1] + "px";
-              var x2 = vertices[2] + "px";
-              var y2 = vertices[3] + "px";
-              var x3 = vertices[4] + "px";
-              var y3 = vertices[5] + "px";
-              var x4 = vertices[6] + "px";
-              var y4 = vertices[7] + "px";
-
-              cd.style.backgroundImage = "url(" + imageUrl + ")";
-              cd.style.clipPath = "polygon(" + x1 + " " + y1 + ", " + x2 + " " + y2 + ", " + x3 + " " + y3 + ", " + x4 + " " + y4 + ")";
-
-            }
-
-            // show the collage
-            message.style.display = "block";
+              cd.src = imageUrl;
+            } 
+            imagemfundo.style.display = "block";
+            cd.style.display = "block";
           })
           .catch(error => {
             console.error("Error getting data from Last.fm API:", error);
             message.textContent = "Error getting data from Last.fm.";
             message.style.display = "block";
           });
+
+          imagemfundo.style.display = "block";
       });
     });
   </script>
@@ -126,21 +126,20 @@
 
   <button id="myButton">Submit</button>
 
-  <div id="message">
-    <img id="bedImage" src="projetoPS.png" alt="Bed Image" style="width: 1323px; height: 1250px">
-    <div class="cd" data-vertices="533,449,411,643,733,649,611,843"></div>
-    <div class="cd" data-vertices="633,549,511,743,833,749,711,943"></div>
-    <div class="cd" data-vertices="533,449,411,643,733,649,611,843"></div>
-    <div class="cd" data-vertices="533,449,411,643,733,649,611,843"></div>
-    <div class="cd" data-vertices="533,449,411,643,733,649,611,843"></div>
-    <div class="cd" data-vertices="533,449,411,643,733,649,611,843"></div>
-    <div class="cd" data-vertices="533,449,411,643,733,649,611,843"></div>
-    <div class="cd" data-vertices="533,449,411,643,733,649,611,843"></div>
-    <div class="cd" data-vertices="533,449,411,643,733,649,611,843"></div>
-    <div class="cd" data-vertices="533,449,411,643,733,649,611,843"></div>
-    <div class="cd" data-vertices="533,449,411,643,733,649,611,843"></div>
-    <!-- Add more "cd" divs for each CD on the bed -->
-  </div>
+  
+  <div class="imagemfundo" src="projetoPS.png" alt="Imagem de Fundo"></div>
+  <img class="cd" style="clip-path: polygon(533px 450px, 744px 579px, 629px 778px, 408px 642px);">
+  <img class="cd" style="clip-path: polygon(533px 450px, 744px 579px, 629px 778px, 408px 642px);">
+  <img class="cd" style="clip-path: polygon(533px 450px, 744px 579px, 629px 778px, 408px 642px);">
+  <img class="cd" style="clip-path: polygon(533px 450px, 744px 579px, 629px 778px, 408px 642px);">
+  <img class="cd" style="clip-path: polygon(533px 450px, 744px 579px, 629px 778px, 408px 642px);">
+  <img class="cd" style="clip-path: polygon(533px 450px, 744px 579px, 629px 778px, 408px 642px);">
+  <img class="cd" style="clip-path: polygon(533px 450px, 744px 579px, 629px 778px, 408px 642px);">
+  <img class="cd" style="clip-path: polygon(533px 450px, 744px 579px, 629px 778px, 408px 642px);">
+  <img class="cd" style="clip-path: polygon(533px 450px, 744px 579px, 629px 778px, 408px 642px);">
+  <img class="cd" style="clip-path: polygon(533px 450px, 744px 579px, 629px 778px, 408px 642px);">
+  <img class="cd" style="clip-path: polygon(533px 450px, 744px 579px, 629px 778px, 408px 642px);">
+  
 
   <p style="font-size: 14px; color:#d15c96">Test #41 by @sabrizzs</p>
 
