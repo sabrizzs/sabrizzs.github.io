@@ -45,7 +45,8 @@
     .cd {
       position: absolute;
       transform-origin: top left;
-      filter: blur(0.5px);
+      filter: blur(0.7px);
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4); 
       
     }
   </style>
@@ -87,14 +88,18 @@
           .then(response => response.json())
           .then(data => {
             
-            var albums = data.topalbums.album.slice(0, 1);
+            var albums = data.topalbums.album.slice(0, 7);
             var cds = document.getElementsByClassName("cd");
 
             // Coordenadas e ângulos dos CDs
             var cdsData = [
-              { left: 532, top: 447, rotate: 32, backgroundPosition: "-500px -30px"},
-              { left: 350, top: 1, rotate: 0 },
-              { left: 350, top: 1, rotate: 0 },
+              { left: 532, top: 447, rotate: 32, width: 270, height: 232},
+              { left: 554, top: 800, rotate: -4, width: 292, height: 275},
+              { left: 865, top: 620, rotate: -38 , width: 292, height: 280},
+              { left: 632, top: 515, rotate: 7 , width: 267, height: 232},
+              { left: 101, top: 808, rotate: -3 , width: 275, height: 272},
+              { left: 818, top: 791, rotate: -1 , width: 310, height: 278},
+              { left: 514, top: 710, rotate: 50 , width: 310, height: 278}
             ];
             
             for (var i = 0; i < cds.length; i++) {             
@@ -110,6 +115,8 @@
 
               cd.style.top = cdData.top + "px";
               cd.style.left = cdData.left + "px";
+              cd.style.width = cdData.width + "px";
+              cd.style.height = cdData.height + "px";
               cd.style.transform = "rotate(" + cdData.rotate + "deg)";
             }
             
@@ -149,6 +156,12 @@
   <div class="container">
     <img id="imagemFundo" class="imagemfundo" src="projetoPS.png" alt="Imagem de Fundo">
     <img id="cd1" class="cd" alt="CD" >
+    <img id="cd2" class="cd" alt="CD" >
+    <img id="cd3" class="cd" alt="CD" >
+    <img id="cd4" class="cd" alt="CD" >
+    <img id="cd5" class="cd" alt="CD" >
+    <img id="cd6" class="cd" alt="CD" >
+    <img id="cd7" class="cd" alt="CD" >
   </div>
 
   <p style="font-size: 14px; color:#d15c96">Test #45 by @sabrizzs</p>
