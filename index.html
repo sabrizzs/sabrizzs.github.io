@@ -44,6 +44,9 @@
 
     .cd {
       position: absolute;
+      transform-origin: top left;
+      filter: blur(0.5px);
+      
     }
   </style>
   <script>
@@ -85,22 +88,29 @@
           .then(data => {
             
             var albums = data.topalbums.album.slice(0, 1);
+            var cds = document.getElementsByClassName("cd");
 
-            var cd1 = document.getElementById("cd1");
-            
-            var cds = [cd1];
+            // Coordenadas e ângulos dos CDs
+            var cdsData = [
+              { left: 532, top: 447, rotate: 32, backgroundPosition: "-500px -30px"},
+              { left: 350, top: 1, rotate: 0 },
+              { left: 350, top: 1, rotate: 0 },
+            ];
             
             for (var i = 0; i < cds.length; i++) {             
               var cd = cds[i];
               var album = albums[i];
+              var cdData = cdsData[i];
+              
               var imageUrl = album.image[3]["#text"] || album.image[2]["#text"] || album.image[1]["#text"];
 
-              console.log(cd.src);
+              console.log(cd.src); ///////////
+              cd.src = imageUrl;
+              console.log(cd.src); ///////////
 
-              //cd.innerHTML = "<div><img src='" + imageUrl + "' alt='" + album.name + "'></div>";
-              cd.src = "<div><img src='" + imageUrl + "' alt='" + album.name + "'></div>";
-              console.log(cd.src);
-
+              cd.style.top = cdData.top + "px";
+              cd.style.left = cdData.left + "px";
+              cd.style.transform = "rotate(" + cdData.rotate + "deg)";
             }
             
             var container = document.querySelector(".container");
@@ -138,9 +148,8 @@
   <button id="myButton">Submit</button>
   <div class="container">
     <img id="imagemFundo" class="imagemfundo" src="projetoPS.png" alt="Imagem de Fundo">
-    <img id="cd1" class="cd" alt="Imagem Adicional" style="clip-path: polygon(533px 450px, 744px 579px, 629px 778px, 408px 642px);">
+    <img id="cd1" class="cd" alt="CD" >
   </div>
-  
 
   <p style="font-size: 14px; color:#d15c96">Test #45 by @sabrizzs</p>
 

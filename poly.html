@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Polígono com imagem</title>
+</head>
+<body>
+    <div style="position: relative;">
+        <img src="projetoPS.png" alt="Imagem" style="width: 100%; height: auto;">
+        <svg tabindex="1" style="position: absolute;">
+            <defs>
+                <pattern id="image1" height="240px" width="280px" viewBox="535,450,412,642,631,778,734,585">
+                    <image xlink:href="cd.png"/>
+                </pattern>
+            </defs>
+            <polygon points="535,450,412,642,631,778,734,585" style="fill: url(#image1);"/>
+        </svg>
+    </div>
+
+    <map name="imagem-map">
+        <area shape="rect" coords="96,516,353,762" title="Rectangle" href="">
+        <area shape="poly" coords="535,450,412,642,631,778,734,585" title="" href="">
+    </map>
+
+</body>
+</html>
