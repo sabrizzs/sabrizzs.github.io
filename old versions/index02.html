@@ -30,7 +30,6 @@
 
     .container {
       display: none;
-      margin-top: 20px;
       position: relative;
       width: 1323px;
       height: 1250px;
@@ -38,12 +37,16 @@
 
     .imagemfundo {
       position: absolute;
+      display: none;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
     }
 
     .cd {
       position: absolute;
+      display: none;
     }
   </style>
   <script>
@@ -75,7 +78,7 @@
 
         // get time period based on selection
         var selectedPeriodParam = periodMap[selectedPeriod];
-        
+
         // call Last.fm API and display most listened albums
         var apiKey = "9a164e95c716032bae6b3ae91d8ebd4e";
         var apiUrl = "https://ws.audioscrobbler.com/2.0/?method=user.gettopalbums&user=" + username + "&period=" + selectedPeriodParam + "&api_key=" + apiKey + "&format=json";
@@ -83,28 +86,23 @@
         fetch(apiUrl)
           .then(response => response.json())
           .then(data => {
-            
             var albums = data.topalbums.album.slice(0, 1);
 
-            var cd1 = document.getElementById("cd1");
-            
-            var cds = [cd1];
-            
-            for (var i = 0; i < cds.length; i++) {             
+            // apply album images to CDs based on the provided coordinates
+            var cds = document.getElementsByClassName("cd");
+            for (var i = 0; i < cds.length-1; i++) {             
               var cd = cds[i];
               var album = albums[i];
               var imageUrl = album.image[3]["#text"] || album.image[2]["#text"] || album.image[1]["#text"];
-
-              console.log(cd.src);
-
-              //cd.innerHTML = "<div><img src='" + imageUrl + "' alt='" + album.name + "'></div>";
-              cd.src = "<div><img src='" + imageUrl + "' alt='" + album.name + "'></div>";
-              console.log(cd.src);
-
-            }
+              cd.src = imageUrl;
+            } 
             
-            var container = document.querySelector(".container");
-            container.style.display = "block";
+            var imagemfundo = document.querySelector(".imagemfundo");
+            imagemfundo.style.display = "block";
+
+            for (var i = 0; i < cds.length; i++) {
+              cds[i].style.display = "block";
+            }
 
           })
           .catch(error => {
@@ -112,9 +110,6 @@
             message.textContent = "Error getting data from Last.fm.";
             message.style.display = "block";
           });
-
-        
-        
       });
     });
   </script>
@@ -136,13 +131,23 @@
   </div>
 
   <button id="myButton">Submit</button>
-  <div class="container">
-    <img id="imagemFundo" class="imagemfundo" src="projetoPS.png" alt="Imagem de Fundo">
-    <img id="cd1" class="cd" alt="Imagem Adicional" style="clip-path: polygon(533px 450px, 744px 579px, 629px 778px, 408px 642px);">
-  </div>
+
+  <img id="imagemFundo" class="imagemfundo" src="projetoPS.png" alt="Imagem de Fundo">
+  
+  <img class="cd" style="clip-path: polygon(533px 450px, 744px 579px, 629px 778px, 408px 642px);">
+  <img class="cd" style="clip-path: polygon(533px 450px, 744px 579px, 629px 778px, 408px 642px);">
+  <img class="cd" style="clip-path: polygon(533px 450px, 744px 579px, 629px 778px, 408px 642px);">
+  <img class="cd" style="clip-path: polygon(533px 450px, 744px 579px, 629px 778px, 408px 642px);">
+  <img class="cd" style="clip-path: polygon(533px 450px, 744px 579px, 629px 778px, 408px 642px);">
+  <img class="cd" style="clip-path: polygon(533px 450px, 744px 579px, 629px 778px, 408px 642px);">
+  <img class="cd" style="clip-path: polygon(533px 450px, 744px 579px, 629px 778px, 408px 642px);">
+  <img class="cd" style="clip-path: polygon(533px 450px, 744px 579px, 629px 778px, 408px 642px);">
+  <img class="cd" style="clip-path: polygon(533px 450px, 744px 579px, 629px 778px, 408px 642px);">
+  <img class="cd" style="clip-path: polygon(533px 450px, 744px 579px, 629px 778px, 408px 642px);">
+  <img class="cd" style="clip-path: polygon(533px 450px, 744px 579px, 629px 778px, 408px 642px);">
   
 
-  <p style="font-size: 14px; color:#d15c96">Test #45 by @sabrizzs</p>
+  <p style="font-size: 14px; color:#d15c96">Test #41 by @sabrizzs</p>
 
 </body>
 </html>
