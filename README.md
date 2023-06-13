@@ -1,4 +1,4 @@
 # CD Collage
-https://www.cdcollage.rf.gd/
+:sparkles: visit my website! https://www.cdcollage.rf.gd/ :sparkles:
 
-CD Collage is a project that aims to create a platform where users can view personalized collages of their most listened albums in their Last.fm and/or Spotify accounts.
+CD Collage is a website where users can view the personalized collages of their most listened to albums on their Last.fm and/or Spotify accounts. It's still in development. 
