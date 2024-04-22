@@ -1,7 +1,7 @@
 ---
-title: Instalando o kernel
+title: Configurando e compilando o kernel do Linux 
 date: 2024-04-21 10:30:00-03:00
-categories: [MAC0470, BLOG]
+categories: [MAC0470, Blog]
 tags: [kernel]     # TAG names should always be lowercase
 author: <author_id>
 ---
