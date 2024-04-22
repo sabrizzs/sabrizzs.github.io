@@ -6,8 +6,6 @@ tags: [kernel]     # TAG names should always be lowercase
 author: <author_id>
 ---
 
-# Instalando o kernel
-
 Olá! Esse é meu primeiro post no meu blog!
 
 Eu iniciei o curso MAC0470 sem ter muito conhecimento sobre o kernel linux, então está sendo bem desafiador para entender tudo que está acontecendo. 
