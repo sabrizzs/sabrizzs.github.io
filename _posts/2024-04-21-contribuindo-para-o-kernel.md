@@ -1,5 +1,5 @@
 ---
-title: Blog 02
+title: Contribuindo para o kernel
 date: 2024-04-21 10:30:00-03:00
 categories: [MAC0470, BLOG]
 tags: [kernel]
