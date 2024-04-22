@@ -1,8 +1,8 @@
 ---
-title: Blog 01
+title: Instalando o kernel
 date: 2024-04-21 10:30:00-03:00
 categories: [MAC0470, BLOG]
-tags: [Kernel]     # TAG names should always be lowercase
+tags: [kernel]     # TAG names should always be lowercase
 author: <author_id>
 ---
 
