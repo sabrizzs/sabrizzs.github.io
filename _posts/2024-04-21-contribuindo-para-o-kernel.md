@@ -1,7 +1,7 @@
 ---
 title: Contribuindo para o kernel
 date: 2024-04-21 10:30:00-03:00
-categories: [MAC0470, BLOG]
+categories: [MAC0470, Blog]
 tags: [kernel, linux, contribuição]
 author: <author_id>
 ---
