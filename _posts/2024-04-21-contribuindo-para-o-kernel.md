@@ -6,8 +6,6 @@ tags: [kernel]
 author: <author_id>
 ---
 
-# Contribuindo para o kernel
-
 Olá! 
 
 Após todos os tutoriais, chegamos na parte de contribuir para o kernel. 
