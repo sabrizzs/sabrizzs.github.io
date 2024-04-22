@@ -18,4 +18,6 @@ O tutorial 2 consistia em construir o kernel Linux para ARM. Ocorre o mesmo do t
 
 Ao longo dos tutoriais, aprendi bastante sobre as configurações e parâmetros de instalação. Tive que repetir os mesmos comandos várias vezes, porém isso fez eu entender mais o que eu estava fazendo.
 
+Ainda estou enfrentando alguns erros com o kernel, mas logo serão resolvidos!
+
 Até o pŕoximo post!
