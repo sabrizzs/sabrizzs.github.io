@@ -12,7 +12,7 @@ Olá!
 
 Após todos os tutoriais, chegamos na parte de contribuir para o kernel. 
 
-Além das aulas, meu grupo se organizou através do Google Meet para que todos pudessem visualizar e contribuir com o código. Das sugestões de patch, seguimos a sugestão 01, que tinha complexidade fácil a moderada e consistia em utilizar device_for_each_child_node_scoped() para simplificar o tratamento de erros e evitar bugs.
+Além das aulas, meu grupo se organizou através do Google Meet para que todos pudessem visualizar e contribuir com o código. Das sugestões de patch, seguimos a sugestão 01, que tinha complexidade fácil a moderada e consistia em utilizar `device_for_each_child_node_scoped()` para simplificar o tratamento de erros e evitar bugs.
 
 Primeiro, enfrentamos algumas dificuldades para entender o código que precisávamos alterar no kernel. Então, fomos atrás de entender e encontramos alguns exemplos de contribuições anteriores que nos ajudaram exatamente no que tinhamos que fazer. E então percebi que não seria tão complicado quanto eu esperava.
 
