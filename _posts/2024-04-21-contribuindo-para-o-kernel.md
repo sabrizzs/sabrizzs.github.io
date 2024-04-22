@@ -16,6 +16,6 @@ Além das aulas, meu grupo se organizou através do Google Meet para que todos p
 
 Primeiro, enfrentamos algumas dificuldades para entender o código que precisávamos alterar no kernel. Então, fomos atrás de entender e encontramos alguns exemplos de contribuições anteriores que nos ajudaram exatamente no que tinhamos que fazer. E então percebi que não seria tão complicado quanto eu esperava.
 
-A alteração que tinhamos que fazer consistia em substituir a chamada device_for_each_child_node() por device_for_each_child_node_scoped e remover a chamada fwnode_handle_put(node). NO final, apenas ficamos em dúvida em como testar as alterações. Agora, estamos esperando o feedback dos monitores da disciplina para saber se podemos enviar a nossa contribuição diretamente para os mantenedores do kernel.
+A alteração que tinhamos que fazer consistia em substituir a chamada `device_for_each_child_node()` por `device_for_each_child_node_scoped` e remover a chamada `fwnode_handle_put(node)`. No final, apenas ficamos em dúvida em como testar as alterações. Agora, estamos esperando o feedback dos monitores da disciplina para saber se podemos enviar a nossa contribuição diretamente para os mantenedores do kernel.
 
 Até o próximo post!
