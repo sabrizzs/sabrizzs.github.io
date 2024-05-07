@@ -6,7 +6,9 @@ tags: [kernel, kworkflow]     # TAG names should always be lowercase
 author: <author_id>
 ---
 
-Olá! Após conhecer mais sobre o kernel do Linux, chegamos no momento de conhecer sobre o Kworkflow e contribuir para o projeto!
+Olá! 
+
+Após conhecer mais sobre o kernel do Linux, chegamos no momento de conhecer sobre o Kworkflow e contribuir para o projeto!
 
 O Kworkflow (KW) é uma ferramenta de linha de comando criada para auxilixar os desenvolvedores do kernel do Linux.
 
