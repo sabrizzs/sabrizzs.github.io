@@ -1,8 +1,8 @@
 ---
-title: Contribuindo para o Kworkflow (parte 2)
-date: 2024-05-23 10:30:00-03:00
+title: Criando um pacote para o Debian
+date: 2024-06-25 10:30:00-03:00
 categories: [MAC0470, Blog]
-tags: [kernel, kworkflow] 
+tags: [pacote, Debian] 
 author: <author_id>
 ---
 
