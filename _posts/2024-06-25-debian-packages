@@ -1,0 +1,25 @@
+---
+title: Contribuindo para o Kworkflow (parte 2)
+date: 2024-05-23 10:30:00-03:00
+categories: [MAC0470, Blog]
+tags: [kernel, kworkflow] 
+author: <author_id>
+---
+
+Olá!
+
+Nesse post vamos falar sobre uma série de tutoriais sobre empacotamento Debian, escrito pelo Joenio. 
+
+[O primeiro tutorial](https://joenio.me/tutorial-pacote-debian-parte1/) fala sobre os passos iniciais para criar pacotes de bibliotecas Perl para o sistema Debian.
+
+[O segundo tutorial](https://joenio.me/tutorial-pacote-debian-parte2/) fala sobre os passos para criar o seu próprio pacote Debian.
+
+A versão do Debian recomendada para trabalhar com pacotes é a Testing, que equilibra as versões Stable e Unstable. O Debain foi instalado via container usando o Docker.
+
+Escolhemos trabalhar com a biblioteca Hash::Wrap. Esta biblioteca Perl fornece uma interface para manipulação de hashes, para encapsulá-los em objetos.
+
+Após criar o pacote, criamos uma conta no Salsa Gitlab para entrar no time e enviar o pacote para o repositório da equipe Perl do Debian. Para isso, tivemos que enviar um email com uma introdução sobre nós. Porém, até então não recebemos uma resposta da equipe Perl do Debian, mas nosso trabalho pode ser visto [aqui](https://salsa.debian.org/lincolnyuji/hash-wrap-package).
+
+Até o próximo post!
+
+
