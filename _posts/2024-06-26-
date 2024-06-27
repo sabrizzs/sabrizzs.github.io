@@ -1,0 +1,21 @@
+---
+title: Continuando contribuindo para o Kworkflow
+date: 2024-06-25 10:30:00-03:00
+categories: [MAC0470, Blog]
+tags: [kw, kworkflow] 
+author: <author_id>
+---
+
+Oie!
+
+Decidimos continuar contribuindo para o Kworkflow, que é uma ferramenta criada para os desenvolvedores do Linux.
+
+### kw maintainers
+
+Trabalhamos em criar uma maior cobertura de testes para o ´kw maintainers´. Abrimos um pull request para isso, [aqui](https://github.com/kworkflow/kworkflow/pull/1118). O Rodrigo Siqueira nos mandou sugestões para melhorar os scripts 
+
+### kw handle-trailer
+
+As issues #1049 e #1051 tratam de problemas similares relacionados à manipulação de linhas de trailer de commits e patches. Criamos uma nova funcionalidade como o kw handle-trailer para que essas tarefas se tornem mais fáceis e rápidas, e assim abrimos um [pull request](https://github.com/kworkflow/kworkflow/pull/1121). 
+
+Até o próximo post!
